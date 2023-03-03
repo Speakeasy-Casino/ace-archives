@@ -31,26 +31,6 @@ def remove_stopwords(input_string, extra_words=None, exclude_words=None):
     return string_without_stopwords
 
 
-def pandas_stopwords(df, extra_words=None, exclude_words=None):
-    """
-    This function takes an DataFrame input and removes stopwords from each column.
-    You can add or remove words witht the extra_words or exclude_words args.
-    """
-    for col in df:
-        df[col] = df[col].apply(remove_stopwords, extra_words=extra_words, exclude_words=exclude_words)
-    return df
-
-def lemm_pandas(df):
-    """
-    Lemmatize a panda's DataFrame
-    Please do not stem and lemmatize the same string.
-    """
-    
-    #Applies the lemmatize() function to each column
-    for col in df:
-        df[col] = df[col].apply(lemmatized)
-    return df
-
 def lemmatized(input_string):
     """
     Takes an input string and lemmatizes it.
@@ -64,17 +44,6 @@ def lemmatized(input_string):
     lemmatized_string = ' '.join(lemmas)
     
     return lemmatized_string
-
-def stemming_pandas(df):
-    """
-    Does stemming on a panda's DataFrame
-    Please do not stem and lemmatize the same string.
-    """
-    
-    #Applies the stemming() function to each column
-    for col in df:
-        df[col] = df[col].apply(stem)
-    return df
 
 def stems(input_string):
     """
@@ -91,11 +60,6 @@ def stems(input_string):
     stemmed_string = ' '.join(stems)
     
     return stemmed_string
-
-def panda_tokens(df):
-    for col in df:
-        df[col] = df[col].apply(tokenized)
-    return df
 
 def tokenized(input_string):
     tokenizer = nltk.tokenize.ToktokTokenizer()
@@ -115,15 +79,6 @@ def basic_clean(input_string):
 
     return input_string
 
-def cleaning_panda_strings(df):
-    """ 
-    This function does the cleaning operatins on every column in a dataframe.
-    BUG!!! It doesn't allow me to pass in select columns from a df.
-    """
-    
-    for col in df:
-        df[col] = df[col].apply(basic_clean)
-    return df
 
 def ngrams_creator(input_list, n_grams = 2):
     """
