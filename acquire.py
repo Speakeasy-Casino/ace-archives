@@ -14,6 +14,7 @@ import os
 import json
 from typing import Dict, List, Optional, Union, cast
 import requests
+import pandas as pd
 
 from env import github_token, github_username
 
@@ -24,11 +25,6 @@ from env import github_token, github_username
 # TODO: Add your github username to your env.py file under the variable `github_username`
 # TODO: Add more repositories to the `REPOS` list below.
 
-REPOS = [
-    "gocodeup/codeup-setup-script",
-    "gocodeup/movies-application",
-    "torvalds/linux",
-]
 
 headers = {"Authorization": f"token {github_token}", "User-Agent": github_username}
 
@@ -104,13 +100,27 @@ def process_repo(repo: str) -> Dict[str, str]:
     }
 
 
-def scrape_github_data() -> List[Dict[str, str]]:
+def scrape_github_data(REPOS) -> List[Dict[str, str]]:
     """
     Loop through all of the repos and process them. Returns the processed data.
     """
     return [process_repo(repo) for repo in REPOS]
 
 
-if __name__ == "__main__":
-    data = scrape_github_data()
-    json.dump(data, open("data.json", "w"), indent=1)
+#if __name__ == "__main__":
+#    data = scrape_github_data()
+#    json.dump(data, open("data.json", "w"), indent=1)
+
+def get_repos(REPOS):
+    """
+    This function takes a list of github repos, cache the data and returns the url, programming language and readme.
+    """
+    file = 'data.json'
+    
+    if os.path.exists(file):
+        
+        return pd.read_json('data.json')
+    else:
+        data = scrape_github_data(REPOS)
+        json.dump(data, open("data.json", "w"), indent=1)
+        return pd.read_json('data.json')
