@@ -61,7 +61,7 @@ def get_repo_language(repo: str) -> str:
 
 
 def get_repo_contents(repo: str) -> List[Dict[str, str]]:
-    url = f"https://api.github.com/repos/{repo}/contents/"
+    url = f"https://api.github.com/repos{repo}/contents/"
     contents = github_api_request(url)
     if type(contents) is list:
         contents = cast(List, contents)
@@ -119,11 +119,11 @@ def get_dataframe(REPOS):
     
     if os.path.exists(file):
         
-        return pd.read_json('data.json')
+        return pd.read_json('data.json', index_col="Unnamed: 0")
     else:
         data = scrape_github_data(REPOS)
         json.dump(data, open("data.json", "w"), indent=1)
-        return pd.read_json('data.json')
+        return pd.read_json('data.json', index_col="Unnamed: 0")
 
 #Home-Function-Come_Getcha_Sum
 
