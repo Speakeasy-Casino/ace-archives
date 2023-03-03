@@ -1,3 +1,15 @@
+import os
+import json
+from typing import Dict, List, Optional, Union, cast
+import requests
+from env import github_token, github_username
+import re
+import numpy as np
+import json
+from typing import Dict, List, Optional, Union, cast
+import requests
+import pandas as pd
+
 """
 A module for obtaining repo readme and language data from the github API.
 
@@ -10,13 +22,6 @@ After doing so, run it like this:
 
 To create the `data.json` file that contains the data.
 """
-import os
-import json
-from typing import Dict, List, Optional, Union, cast
-import requests
-import pandas as pd
-
-from env import github_token, github_username
 
 # TODO: Make a github personal access token.
 #     1. Go here and generate a personal access token: https://github.com/settings/tokens
@@ -111,7 +116,7 @@ def scrape_github_data(REPOS) -> List[Dict[str, str]]:
 #    data = scrape_github_data()
 #    json.dump(data, open("data.json", "w"), indent=1)
 
-def get_repos(REPOS):
+def get_dataframe(REPOS):
     """
     This function takes a list of github repos, cache the data and returns the url, programming language and readme.
     """
@@ -123,4 +128,5 @@ def get_repos(REPOS):
     else:
         data = scrape_github_data(REPOS)
         json.dump(data, open("data.json", "w"), indent=1)
-        return pd.read_json('data.json')
+        return pd.read_json('data.json', index_col = 'Unnamed: 0')
+    
