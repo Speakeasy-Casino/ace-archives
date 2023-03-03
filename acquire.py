@@ -111,7 +111,7 @@ def scrape_github_data(REPOS) -> List[Dict[str, str]]:
 #    data = scrape_github_data()
 #    json.dump(data, open("data.json", "w"), indent=1)
 
-def get_repos(REPOS):
+def get_dataframe(REPOS):
     """
     This function takes a list of github repos, cache the data and returns the url, programming language and readme.
     """
@@ -124,3 +124,63 @@ def get_repos(REPOS):
         data = scrape_github_data(REPOS)
         json.dump(data, open("data.json", "w"), indent=1)
         return pd.read_json('data.json')
+
+#Home-Function-Come_Getcha_Sum
+
+def get_repos():
+    
+    """
+    Scrapes GitHub for repositories related to the keyword "blackjack" and returns
+    a DataFrame containing the href values of the repositories found. If a file "links.csv"
+    exists in the current directory, it reads the file and returns the DataFrame instead of
+    scraping GitHub. If the file does not exist, it scrapes GitHub and saves the DataFrame
+    to the file.
+
+    Returns:
+        df (pandas.DataFrame): A DataFrame containing the href values of the repositories
+            related to the keyword "blackjack".
+    """
+    
+    # create an empty dataframe
+    df = pd.DataFrame()
+
+    # create a list to store hrefs
+    hrefs = []
+    
+    # check if file "links.csv" exists
+    if path.exists("links.csv"):
+        df = pd.read_csv("links.csv", index_col= 0)
+        return df
+    else:
+        
+        for i in range(1,25):
+            url = f'https://github.com/search?o=desc&p={i}&q=blackjack&s=forks&type=Repositories'
+        
+            # Create a response based on my headers
+            print(url)
+            response = get(url, headers=headers)
+        
+            print(response.ok, response.status_code)
+        
+            # create soup object
+            soup = BeautifulSoup(response.content, 'html.parser')
+        
+            # create a find_all list
+            anchors = soup.find_all('a', class_='v-align-middle')
+        
+            # list comprehension to get href values for all anchor tags
+            for anchor in anchors:
+                href = anchor.get('href')
+                print(href)
+                hrefs.append(href)
+            # wait a bit to avoid overloading the API
+            time.sleep(12)
+        
+        # append the hrefs to the data frame
+        df = df.append(pd.DataFrame({'href': hrefs}))
+
+        df = df[df.href != '/KillovSky/Iris']
+        # save the DataFrame to a CSV file
+        df.to_csv("links.csv", index=False)
+   
+    return df
