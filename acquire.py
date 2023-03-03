@@ -111,7 +111,7 @@ def scrape_github_data(REPOS) -> List[Dict[str, str]]:
 #    data = scrape_github_data()
 #    json.dump(data, open("data.json", "w"), indent=1)
 
-def get_repos(REPOS):
+def get_repo_contents(REPOS):
     """
     This function takes a list of github repos, cache the data and returns the url, programming language and readme.
     """
