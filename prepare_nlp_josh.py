@@ -13,7 +13,9 @@ import json
 import unicodedata
 import nltk
 
-def tokenized(input_string, tokenize_tool=1):
+from sklearn.model_selection import train_test_split
+
+def tokenized(input_string, tokenize_tool=1, return_list=False):
     """
     Input:
     This function takes in a string and tokenizer tool argument and returns a list of tokens.
@@ -24,11 +26,17 @@ def tokenized(input_string, tokenize_tool=1):
     
     if tokenize_tool==1:
         tokenizer = ToktokTokenizer()
-        return tokenizer.tokenize(input_string)
+        tokens = tokenizer.tokenize(input_string, return_str=True)
     elif tokenize_tool == 2:
-        return word_tokenize(input_string)
+        tokens = word_tokenize(input_string)
     elif tokenize_tool == 3:
-        return sent_tokenize(input_string)
+        tokens = sent_tokenize(input_string)
+    if return_list:
+        return tokens
+    else:
+        token_string = ' '.join(tokens)
+        return token_string
+    
 
 def basic_clean(input_string):
     """
@@ -44,7 +52,7 @@ def basic_clean(input_string):
 
     return input_string
 
-def remove_stopwords(input_string, extra_words=None, exclude_words=None):
+def remove_stopwords(input_string, extra_words=None, exclude_words=None, return_list=False):
     """
     This function takes an input and removes stopwords. You can add or remove words witht the extra_words or exclude_words args.
     """
@@ -60,12 +68,14 @@ def remove_stopwords(input_string, extra_words=None, exclude_words=None):
                 stopword_list.remove(word)
     words = input_string.split()
     filtered_words = [w for w in words if w not in stopword_list]
-    string_without_stopwords = ' '.join(filtered_words)
+    if return_list:
+        return filtered_words
+    else:
+        string_without_stopwords = ' '.join(filtered_words)
+        return string_without_stopwords
 
-    return string_without_stopwords
 
-
-def lemmatized(input_string):
+def lemmatized(input_string, return_list=False):
     """
     Takes an input string and lemmatizes it.
     Please do not stem and lemmatize the same string.
@@ -75,13 +85,15 @@ def lemmatized(input_string):
     
     #Makes lemmatade
     lemmas = [wnl.lemmatize(word) for word in input_string.split()]
+    if return_list:
+        return lemmas
     lemmatized_string = ' '.join(lemmas)
     
     return lemmatized_string
 
-def stemmertize_tool(input_list, stemmer_type=1):
+def stemmerize_tool(input_string, stemmer_type=1, return_list=False):
     """
-    Input a list of words to stemmertize. Returns a list.
+    Input a string of words to stemmertize. Returns a string.
     stemmer_type=1 - PorterStemmer
     stemmer_type=2 - EnglishStemmer
     stemmer_type=3 - SnowballStemmer("english")
@@ -93,8 +105,35 @@ def stemmertize_tool(input_list, stemmer_type=1):
         stemmer = EnglishStemmer()
     elif stemmer_type ==3:
         stemmer = SnowballStemmer("english")
+    stem_list = [stemmer.stem(word) for word in input_string.split()]
+    if return_list:
+        return stem_list
+    return ' '.join(stem_list)
+
+
+def train_validate(df, stratify_col = None, random_seed=1969):
+    """
+    This function takes in a DataFrame and column name for the stratify argument (defualt is None).
+    It will split the data into three parts for training, testing and validating.
+    """
+    #This is logic to set the stratify argument:
+    stratify_arg = ''
+    if stratify_col != None:
+        stratify_arg = df[stratify_col]
+    else:
+        stratify_arg = None
     
-    return [stemmer.stem(word) for word in input_list]
+    #This splits the DataFrame into 'train' and 'test':
+    train, test = train_test_split(df, train_size=.8, stratify=stratify_arg, random_state = random_seed)
+    
+    #The length of the stratify column changed and needs to be adjusted:
+    if stratify_col != None:
+        stratify_arg = train[stratify_col]
+        
+    #This splits the larger 'train' DataFrame into a smaller 'train' and 'validate' DataFrames:
+    train, validate = train_test_split(train, train_size=.6, stratify=stratify_arg, random_state = random_seed)
+    return train, validate, test
+
 
 def extract_proper_nouns(quote):
     """
@@ -105,10 +144,10 @@ def extract_proper_nouns(quote):
     tree = nltk.ne_chunk(tags, binary=True)
     return set(" ".join(i[0] for i in t)for t in tree if hasattr(t, "label") and t.label() == "NE")
 
-def ngrams_creator(input_list, n_grams = 2):
+
+def ngrams_creator(input_string, n_grams = 2):
     """
     This function takes in a list and returns a list of grams.
     """
-    ngrams = nltk.ngrams(input_list, n_grams)
+    ngrams = nltk.ngrams(input_string.split(), n_grams)
     return list(ngrams)
-
