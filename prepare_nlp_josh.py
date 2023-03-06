@@ -36,7 +36,37 @@ def tokenized(input_string, tokenize_tool=1, return_list=False):
     else:
         token_string = ' '.join(tokens)
         return token_string
+
     
+def clean_languages(df):
+    """
+    Takes in a DataFrame, combines Python and C based languages and returns the DataFrame.
+    """
+    
+    df.language[df.language == 'Jupyter Notebook'] = 'Python'
+    df.language[(df.language == 'Objective-C') 
+             |(df.language == 'C#')
+            |(df.language == 'C++') 
+            |(df.language == 'C')] = 'C_based'
+    df.language[(df.language == 'Swift') 
+            | (df.language == 'CSS') 
+            | (df.language == 'HTML')
+            | (df.language == 'TypeScript')
+            | (df.language == 'Lua')
+            | (df.language == 'Kotlin')
+            | (df.language == 'Vue')
+            | (df.language == 'Rust')
+            | (df.language == 'PHP')
+            | (df.language == 'Go')
+            | (df.language == 'Dart')
+            | (df.language == 'Roff')
+            | (df.language == 'Haskell')
+            | (df.language == 'Visual Basic')
+            | (df.language == 'Solidity')
+            | (df.language == 'Clojure')
+            | (df.language == 'Elixir')
+            | (df.language == 'Shell')] = 'Other'
+    return df    
 
 def basic_clean(input_string):
     """
