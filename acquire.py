@@ -11,10 +11,20 @@ After doing so, run it like this:
 To create the `data.json` file that contains the data.
 """
 import os
+from os import path
 import json
 from typing import Dict, List, Optional, Union, cast
 import requests
 import pandas as pd
+import numpy as np
+from requests import get
+
+from json.decoder import JSONDecodeError
+from bs4 import BeautifulSoup
+
+# Visual Imports
+import time
+from tqdm import tqdm
 
 from env import github_token, github_username
 
@@ -46,7 +56,7 @@ def github_api_request(url: str) -> Union[List, Dict]:
 
 
 def get_repo_language(repo: str) -> str:
-    url = f"https://api.github.com/repos/{repo}"
+    url = f"https://api.github.com/repos{repo}"
     repo_info = github_api_request(url)
     if type(repo_info) is dict:
         repo_info = cast(Dict, repo_info)
@@ -61,7 +71,7 @@ def get_repo_language(repo: str) -> str:
 
 
 def get_repo_contents(repo: str) -> List[Dict[str, str]]:
-    url = f"https://api.github.com/repos/{repo}/contents/"
+    url = f"https://api.github.com/repos{repo}/contents/"
     contents = github_api_request(url)
     if type(contents) is list:
         contents = cast(List, contents)
@@ -123,9 +133,13 @@ def get_repos(REPOS):
     else:
         data = scrape_github_data(REPOS)
         json.dump(data, open("data.json", "w"), indent=1)
-        return pd.read_json('data.json')
+        df = pd.read_json('data.json')
+        
+        #Save the data as csv
+        df.to_csv("origional_data.csv", index=False)
+        return df
 
-def get_repos():
+def get_links():
     
     """
     Scrapes GitHub for repositories related to the keyword "blackjack" and returns
@@ -146,11 +160,11 @@ def get_repos():
     
     # check if file "links.csv" exists
     if path.exists("links.csv"):
-        df = pd.read_csv("links.csv", index_col= 0)
+        df = pd.read_csv("links.csv")
         return df
     else:
         
-        for i in range(1,25):
+        for i in range(1,50):
             url = f'https://github.com/search?o=desc&p={i}&q=blackjack&s=forks&type=Repositories'
         
             # Create a response based on my headers
@@ -171,7 +185,7 @@ def get_repos():
                 print(href)
                 hrefs.append(href)
             # wait a bit to avoid overloading the API
-            time.sleep(12)
+            time.sleep(20)
         
         # append the hrefs to the data frame
         df = df.append(pd.DataFrame({'href': hrefs}))
