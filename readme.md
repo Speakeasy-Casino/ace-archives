@@ -1,4 +1,80 @@
-ReadMe - Natural Language Processing:
+# Speakeasy-Casino's Natural Language Processing Analysis
+### By Data Scientist : Andrew Konstans, Joshua Holt, Jacob Panyathong, Branodon Navarrete
+
+<a href="#"><img alt="Python" src="https://img.shields.io/badge/Python-013243.svg?logo=python&logoColor=blue"></a>
+<a href="#"><img alt="Pandas" src="https://img.shields.io/badge/Pandas-150458.svg?logo=pandas&logoColor=red"></a>
+<a href="#"><img alt="NumPy" src="https://img.shields.io/badge/Numpy-2a4d69.svg?logo=numpy&logoColor=black"></a>
+<a href="#"><img alt="Matplotlib" src="https://img.shields.io/badge/Matplotlib-8DF9C1.svg?logo=matplotlib&logoColor=blue"></a>
+<a href="#"><img alt="seaborn" src="https://img.shields.io/badge/seaborn-65A9A8.svg?logo=pandas&logoColor=red"></a>
+<a href="#"><img alt="sklearn" src="https://img.shields.io/badge/sklearn-4b86b4.svg?logo=scikitlearn&logoColor=black"></a>
+<a href="#"><img alt="SciPy" src="https://img.shields.io/badge/SciPy-1560bd.svg?logo=scipy&logoColor=blue"></a>
+
+# :black_joker: Goal
+
+Our team has set out to learn the NLP pipeline while keeping our interest in mind. So we seek to create a M.l model to classify repositories based on their primary coding language only looking at the words in their ReadMe's. We will work on repositories that are focused on the topic "Blackjack"
+
+* We aim to develope a model that can classify github repository programing languages.
+
+* Create a report which is easy to read and interpret, and reproducable.
+
+## :spades: Data Overview
+
+* Our data was webscraped for github, where we collected about 380 urls which lead to individual repositories on github
+
+* These Repo's had specific attributes we tried to follow:
+    * In English
+    * Most Forked Category
+    * Had a Specific Key Word: Blackjack
+    
+    
+# :diamonds: Initial Questions
+* What are the Most Common Words in the ReadMe's?
+
+* Does the Length of ReadMe's vary among Programming Languages?
+
+* Do Specific Programming Language Repositories have different amount of Unique Words?
+
+* Are There Some Words that Only show up in Key Programming Languages?
+
+### :clubs: Project Plan / Process
+#### :one:   Data Acquisition
+
+<details>
+<summary> Gather data from Github </summary>
+
+- Scrape URL's meeting requirements
+
+- Save to local machine
+
+</details>
+
+<details>
+<summary> acquire.py </summary>
+
+- Create acquire.py and user-defined functions to import data from local saves. Create dataframes.
+</details>
+
+
+#### :two:   Data Preparation
+
+<details>
+<summary> Data Cleaning</summary>
+
+- **Missing values:**
+    - Drop NULLS
+
+
+
+- **Dropped**
+     - We created a feature called `Others` which was a collection of less frequent programming languages. We dropped this.(Hurting the Model)
+     
+- **NLP**
+     - Cleaned, Tokenized, Stemmed, Lemmed to get ready for exploring and modeling
+     
+      <details>
+
+
+
 
 To Reproduce:
 1. Acquire a personal access token from https://github.com/settings/tokens
