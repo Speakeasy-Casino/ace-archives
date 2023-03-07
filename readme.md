@@ -76,8 +76,8 @@ variables, conditional , statements, loops, functions, object, oriented programm
 
 - **train,validating,test:**
     - stratify against `language` columns
-
-      <details>
+   
+<details>
          
 #### :three:   Exploratory Analysis
 
