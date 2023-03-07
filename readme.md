@@ -1,5 +1,5 @@
 # Speakeasy-Casino's Natural Language Processing Analysis
-### By Data Scientist : Andrew Konstans, Joshua Holt, Jacob Panyathong, Branodon Navarrete
+### By Data Scientist : Andrew Konstans, Joshua Holt, Jacob Panyathong, Brandon Navarrete
 
 <a href="#"><img alt="Python" src="https://img.shields.io/badge/Python-013243.svg?logo=python&logoColor=blue"></a>
 <a href="#"><img alt="Pandas" src="https://img.shields.io/badge/Pandas-150458.svg?logo=pandas&logoColor=red"></a>
@@ -63,8 +63,6 @@ Our team has set out to learn the NLP pipeline while keeping our interest in min
 - **Missing values:**
     - Drop NULLS
 
-
-
 - **Dropped**
      - We created a feature called `Others` which was a collection of less frequent programming languages. We dropped this.(Hurting the Model)
      
@@ -76,9 +74,10 @@ variables, conditional , statements, loops, functions, object, oriented programm
 
 - **train,validating,test:**
     - stratify against `language` columns
-   
-<details>
-         
+n-alphanumeric characters.
+</details>
+
+        
 #### :three:   Exploratory Analysis
 
 <details>
@@ -91,7 +90,7 @@ variables, conditional , statements, loops, functions, object, oriented programm
 * Do Specific Programming Language Repositories have different amount of Unique Words?
 
 * Are There Some Words that Only show up in Key Programming Languages?
-<details>
+</details>
    
  
 #### :four:   Modeling Evaluation
@@ -102,7 +101,7 @@ variables, conditional , statements, loops, functions, object, oriented programm
 * Create Baseline
 
 * Test decision tree, random forest, logistic regression ( select best with given parameter, stem v.s lemm, TF-IDF or Count Vectorizer
-<details>
+</details>
 
 
 ### :medal_sports: Key Findings 
@@ -116,15 +115,12 @@ variables, conditional , statements, loops, functions, object, oriented programm
 - We had to drop `Others` column. Our model was not able to capture this very well
 - We were able to out perform the baseline.
 
-   
-   
 </details>
 
 
 # Recommendation
 * This model is beating the baseline of just guessing. It is fit for production UNTIL we develope a model that can outperform this one.
 
-*
 
 :electron: # Next Steps
 *  This model took about 380 repo's, more data wouldn't hurt.
@@ -150,3 +146,4 @@ We passed the list of repositories to a function that acquired the primary progr
 
 Prepare the data:
 During the preparation process we dropped entries with null values. Then we combined all the C programming languages. We kept the top five languages and renamed all the other languages to "other." We cleaned the text by removing non-alphanumeric characters.
+
