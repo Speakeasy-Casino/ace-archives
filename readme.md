@@ -70,10 +70,66 @@ Our team has set out to learn the NLP pipeline while keeping our interest in min
      
 - **NLP**
      - Cleaned, Tokenized, Stemmed, Lemmed to get ready for exploring and modeling
-     
+    - select stopwords 
+   ( blackjack, java, cards, split, ace
+variables, conditional , statements, loops, functions, object, oriented programming, syntax, comments, libraries, frameworks)
+
+- **train,validating,test:**
+    - stratify against `language` columns
+
       <details>
+         
+#### :three:   Exploratory Analysis
+
+<details>
+<summary> Questions </summary>
+
+* What are the Most Common Words in the ReadMe's?
+
+* Does the Length of ReadMe's vary among Programming Languages?
+
+* Do Specific Programming Language Repositories have different amount of Unique Words?
+
+* Are There Some Words that Only show up in Key Programming Languages?
+<details>
+   
+ 
+#### :four:   Modeling Evaluation
+
+<details>
+<summary> Models </summary>
+
+* Create Baseline
+
+* Test decision tree, random forest, logistic regression ( select best with given parameter, stem v.s lemm, TF-IDF or Count Vectorizer
+<details>
 
 
+### :medal_sports: Key Findings 
+<details>
+   
+   
+<summary> Key Points </summary>
+   
+- Ruby was the most used and most common language among our programming languages.
+- Our best model, given parameters and stopwords, was a decsion tree at 77% accuracy
+- We had to drop `Others` column. Our model was not able to capture this very well
+- We were able to out perform the baseline.
+
+   
+   
+</details>
+
+
+# Recommendation
+* This model is beating the baseline of just guessing. It is fit for production UNTIL we develope a model that can outperform this one.
+
+*
+
+:electron: # Next Steps
+*  This model took about 380 repo's, more data wouldn't hurt.
+* Our "Other" category was a catch-all for the least popular languages. Our model was not successful in this area, why?
+* We should explore n-grams, as this may benefit the model
 
 
 To Reproduce:
