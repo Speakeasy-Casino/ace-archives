@@ -147,3 +147,6 @@ We passed the list of repositories to a function that acquired the primary progr
 Prepare the data:
 During the preparation process we dropped entries with null values. Then we combined all the C programming languages. We kept the top five languages and renamed all the other languages to "other." We cleaned the text by removing non-alphanumeric characters.
 
+Modeling: 
+During the modeling process we dropped the Other programming languages to improve performance. We attempted to use the Logistic Regression, Random Forest and Decision Tree models. Our Decision Tree performed the best at 76%. Our baseline of 62% was determined by picking the language which occurred the most often, Ruby.
+
