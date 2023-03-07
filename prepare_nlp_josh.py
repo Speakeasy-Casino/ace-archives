@@ -15,6 +15,10 @@ import nltk
 
 from sklearn.model_selection import train_test_split
 
+#Removes warnings and imporves asthenics
+import warnings
+warnings.filterwarnings("ignore")
+
 def tokenized(input_string, tokenize_tool=1, return_list=False):
     """
     Input:
@@ -66,6 +70,7 @@ def clean_languages(df):
             | (df.language == 'Clojure')
             | (df.language == 'Elixir')
             | (df.language == 'Shell')] = 'Other'
+    df = df[df['language'] != 'Other']
     return df    
 
 def basic_clean(input_string):
@@ -181,3 +186,19 @@ def ngrams_creator(input_string, n_grams = 2):
     """
     ngrams = nltk.ngrams(input_string.split(), n_grams)
     return list(ngrams)
+
+def big_func_to_pre_data(df):
+    """
+    This function is a function of functions that prepare the data.
+    """
+    #removes null values in all columns
+    df.dropna(inplace=True)
+    
+    #Performs functions listed above
+    df = clean_languages(df)
+    df['readme_clean'] = df['readme_contents'].apply(basic_clean)
+    df['readme_clean'] = df['readme_clean'].apply(tokenized, tokenize_tool=2)
+    df['readme_stem'] = df['readme_clean'].apply(stemmerize_tool, stemmer_type=3)
+    
+    return df
+
