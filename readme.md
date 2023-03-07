@@ -1,6 +1,9 @@
 # Speakeasy-Casino's Natural Language Processing Analysis
 ### By Data Scientist : Andrew Konstans, Joshua Holt, Jacob Panyathong, Brandon Navarrete
 
+# Canva Slide Presentation:
+https://www.canva.com/design/DAFcLOlcW6g/ejBgYtVgZePvcy3vZyptMQ/view?utm_content=DAFcLOlcW6g&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 <a href="#"><img alt="Python" src="https://img.shields.io/badge/Python-013243.svg?logo=python&logoColor=blue"></a>
 <a href="#"><img alt="Pandas" src="https://img.shields.io/badge/Pandas-150458.svg?logo=pandas&logoColor=red"></a>
 <a href="#"><img alt="NumPy" src="https://img.shields.io/badge/Numpy-2a4d69.svg?logo=numpy&logoColor=black"></a>
