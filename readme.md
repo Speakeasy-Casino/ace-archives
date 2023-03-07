@@ -19,7 +19,7 @@ Our team has set out to learn the NLP pipeline while keeping our interest in min
 
 ## :spades: Data Overview
 
-* Our data was webscraped for github, where we collected about 380 urls which lead to individual repositories on github
+* Our data was webscraped from github, where we collected about 380 urls which lead to individual repositories on github
 
 * These Repo's had specific attributes we tried to follow:
     * In English
